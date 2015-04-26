@@ -2,8 +2,8 @@
 var password = window.localStorage.getItem('password');
 
 var call = {
-    username: "admin",
-    password: "123",
+    username: username,
+    password: password,
     status : true,
     timestamp: new Date().getTime(),
     module : "OM_WorkOrders",
@@ -41,6 +41,10 @@ request.fail(function (jqXHR, textStatus) {
 });
 
 function myfunction(message) {
-    alert(message);
     window.localStorage.setItem('tskid', message);
+    window.location.href = 'task.html';
 }
+$('#logout').click(function () {
+    localStorage.clear();
+    window.location.href = "Login.html";
+});
