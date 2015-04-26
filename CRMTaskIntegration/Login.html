@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Login </title>
+    <link href="css/reset.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" media="screen" type="text/css" />
+</head>
+<body>
+    <div class="wrap">
+        <div class="avatar">
+           
+            <img src="images/esri.jpg" />
+        </div>
+        <input type="text" placeholder="username" id="username" required />
+        <div class="bar">
+            <i></i>
+        </div>
+        <input type="password" placeholder="password" id="password" required />
+        <!--<a href="" class="forgot_link">forgot ?</a>-->
+        <button id="signin">Sign in</button>
+        <label style="color: red;margin-left: 18px;" id="invalid">Invalid username or password</label>
+        <!-- Cordova reference, this is added to your app when it's built. -->
+        <script src="cordova.js"></script>
+        <script src="scripts/jquery-2.0.3.min.js"></script>
+
+        <script src="scripts/platformOverrides.js"></script>
+        <script src="scripts/login.js"></script>
+    </div>
+</body>
+</html>

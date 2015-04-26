@@ -1,25 +1,46 @@
-﻿// For an introduction to the Blank template, see the following documentation:
-// http://go.microsoft.com/fwlink/?LinkID=397704
-// To debug code on page load in Ripple or on Android devices/emulators: launch your app, set breakpoints, 
-// and then run "window.location.reload()" in the JavaScript Console.
-(function () {
-    "use strict";
+﻿var username = window.localStorage.getItem('username');
+var password = window.localStorage.getItem('password');
 
-    document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
+var call = {
+    username: "admin",
+    password: "123",
+    status : true,
+    timestamp: new Date().getTime(),
+    module : "OM_WorkOrders",
+    action : "viewall"
+}
 
-    function onDeviceReady() {
-        // Handle the Cordova pause and resume events
-        document.addEventListener( 'pause', onPause.bind( this ), false );
-        document.addEventListener( 'resume', onResume.bind( this ), false );
+var request = $.ajax({
+    url: "http://demos.esrinea.com:8080/alkancrm/index.php?entryPoint=esriRestManager",
+    method: "GET",
+    crossdomain: true,
+    datatype: 'JSON',
+    data: { requeststr: btoa(JSON.stringify(call)) }
+});
+
+request.done(function (msg) {
+
+    var result = JSON.parse(atob(msg));
+    console.log(result);
+    var count = 0;
+    $.each(result, function (i, item) {
+        if (i == "data") {
+            for (var i = 0; i < item.length; i++) {
+                $('#post').append('<div id="' + item[i].record + '" onclick="myfunction(this.id)">' + item[i].name.value + "<br />" + item[i].date_entered.value + "<hr /></div>");
+            }
+        }
         
-        // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
-    };
+        console.log(i);
+        console.log(item);
+        count++;
+    });
+});
 
-    function onPause() {
-        // TODO: This application has been suspended. Save application state here.
-    };
+request.fail(function (jqXHR, textStatus) {
 
-    function onResume() {
-        // TODO: This application has been reactivated. Restore application state here.
-    };
-} )();
+});
+
+function myfunction(message) {
+    alert(message);
+    window.localStorage.setItem('tskid', message);
+}
